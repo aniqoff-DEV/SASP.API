@@ -40,7 +40,6 @@ namespace SASP.API.Controllers
 
                     return Ok(userDtos);
                 }
-                throw new NotImplementedException();
             }
             catch (Exception)
             {
@@ -75,6 +74,93 @@ namespace SASP.API.Controllers
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<UserDto>> PostUser([FromBody] User user)
+        {
+            try
+            {
+                var newCartItem = await _userRepository.CreateItem(user);
+
+                if (newCartItem == null)
+                {
+                    return NoContent();
+                }
+
+                var city = await _cityRepository.GetItemById(user.CityId);
+                var country = await _countryRepository.GetItemById(user.CountryId);
+
+                if (city == null || country == null)
+                    return NotFound();
+
+                var userDto = newCartItem.ConvertUserToDto(city, country);
+
+                return CreatedAtAction("test228", new { id = userDto.UserId }, userDto);
+
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpDelete("{id:int}")]
+        public async Task<ActionResult<UserDto>> DeleteItem(int id)
+        {
+            try
+            {
+                var user = await _userRepository.DeleteItem(id);
+
+                if (user == null)
+                {
+                    return NotFound();
+                }
+
+                var city = await _cityRepository.GetItemById(user.CityId);
+                var country = await _countryRepository.GetItemById(user.CountryId);
+
+                if (city == null || country == null)
+                    return NotFound();
+
+                var userDto = user.ConvertUserToDto(city, country);
+
+                return Ok(userDto);
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+        [HttpPatch("{id:int}")]
+        public async Task<ActionResult<UserDto>> UpdateQty(int id, User user)
+        {
+            try
+            {
+                var cartToUpdate = await _userRepository.UpdateItem(id, user);
+                if (cartToUpdate == null)
+                {
+                    return NotFound();
+                }
+
+                var city = await _cityRepository.GetItemById(user.CityId);
+                var country = await _countryRepository.GetItemById(user.CountryId);
+
+                if (city == null || country == null)
+                    return NotFound();
+
+                var userDto = user.ConvertUserToDto(city, country);
+
+                return Ok(userDto);
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+
         }
     }
 }

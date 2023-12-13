@@ -7,9 +7,9 @@ namespace SASP.API.Repositories
 {
     public class AdminRepository : IAdminRepository
     {
-        private readonly SASPDbContext _context;
+        private readonly AdminSASPDbContext _context;
 
-        public AdminRepository(SASPDbContext context)
+        public AdminRepository(AdminSASPDbContext context)
         {
             _context = context;
         }

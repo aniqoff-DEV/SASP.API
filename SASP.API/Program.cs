@@ -6,10 +6,28 @@ using SASP.API.Repositories.Contracts;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CORSPolicy", builder =>
+    {
+        builder
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+        .WithOrigins("http://localhost:3000",
+        "http://localhost:3001",
+        "http://localhost:3002",
+        "http://localhost:3003",
+        "http://appname.azurestaticapps.net");
+    });
+});
+
 builder.Services.AddControllers();
 
 builder.Services.AddDbContextPool<SASPDbContext>(option =>
     option.UseSqlite(builder.Configuration.GetConnectionString("SqliteConnection")));
+
+builder.Services.AddDbContextPool<AdminSASPDbContext>(option =>
+    option.UseSqlite(builder.Configuration.GetConnectionString("SqliteConnection2")));
 
 #region Repository Services
 
@@ -31,6 +49,8 @@ var app = builder.Build();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseCors("CORSPolicy");
 
 app.MapControllers();
 

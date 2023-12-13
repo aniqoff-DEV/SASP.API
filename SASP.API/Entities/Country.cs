@@ -7,7 +7,6 @@ namespace SASP.API.Entities
         [Key]
         public int CountryId { get; set; }
 
-        [Required]
         public string Name { get; set; }
     }
 }

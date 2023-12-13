@@ -9,8 +9,6 @@ namespace SASP.API.Data
 
         public DbSet<User> Users { get; set; }
 
-        public DbSet<Admin> Admins { get; set; }
-
         public DbSet<Subscription> Subscriptions { get; set; }
 
         public DbSet<OrderHistory> OrderHistories { get; set; }
