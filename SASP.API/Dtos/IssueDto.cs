@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace SASP.API.Dtos
+﻿namespace SASP.API.Dtos
 {
     public class IssueDto
     {
