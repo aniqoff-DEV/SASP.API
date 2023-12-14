@@ -96,7 +96,7 @@ namespace SASP.API.Controllers
 
                 var userDto = newCartItem.ConvertUserToDto(city, country);
 
-                return CreatedAtAction("test228", new { id = userDto.UserId }, userDto);
+                return Ok(userDto);
 
 
             }
@@ -107,7 +107,7 @@ namespace SASP.API.Controllers
         }
 
         [HttpDelete("{id:int}")]
-        public async Task<ActionResult<UserDto>> DeleteItem(int id)
+        public async Task<ActionResult<UserDto>> DeleteUser(int id)
         {
             try
             {
@@ -135,7 +135,7 @@ namespace SASP.API.Controllers
             }
         }
         [HttpPatch("{id:int}")]
-        public async Task<ActionResult<UserDto>> UpdateQty(int id, User user)
+        public async Task<ActionResult<UserDto>> UpdateUser(int id, User user)
         {
             try
             {

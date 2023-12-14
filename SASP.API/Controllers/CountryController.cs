@@ -49,12 +49,48 @@ namespace SASP.API.Controllers
                     return NoContent();
                 }
 
-                return Ok();
+                return Ok(newCountry);
             }
             catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
+        }
+
+        [HttpDelete("{id:int}")]
+        public async Task<ActionResult<Country>> DeleteCountry(int id)
+        {
+            try
+            {
+                var country = await _countryRepository.DeleteItem(id);
+
+                if (country == null) return NotFound();
+
+                return Ok(country);
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+        [HttpPatch("{id:int}")]
+        public async Task<ActionResult<Country>> UpdateCountry(int id, Country country)
+        {
+            try
+            {
+                var countryToUpdate = await _countryRepository.UpdateItem(id, country);
+
+                if (countryToUpdate == null) return NotFound();
+
+                return Ok(countryToUpdate);
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+
         }
     }
 }

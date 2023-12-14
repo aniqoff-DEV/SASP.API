@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SASP.API.Entities;
+using SASP.API.Repositories;
 using SASP.API.Repositories.Contracts;
 
 namespace SASP.API.Controllers
@@ -49,12 +50,48 @@ namespace SASP.API.Controllers
                     return NoContent();
                 }
 
-                return Ok();
+                return Ok(newCity);
             }
             catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
+        }
+
+        [HttpDelete("{id:int}")]
+        public async Task<ActionResult<City>> DeleteCity(int id)
+        {
+            try
+            {
+                var city = await _cityRepository.DeleteItem(id);
+
+                if (city == null) return NotFound();
+
+                return Ok(city);
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+        [HttpPatch("{id:int}")]
+        public async Task<ActionResult<City>> UpdateCity(int id, City city)
+        {
+            try
+            {
+                var cityToUpdate = await _cityRepository.UpdateItem(id, city);
+
+                if (cityToUpdate == null) return NotFound();
+
+                return Ok(cityToUpdate);
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+
         }
     }
 }
