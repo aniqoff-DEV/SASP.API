@@ -18,19 +18,21 @@ namespace SASP.API.Extensions
                         Catalog = catalog.CatalogName,
                         TypeIssue = type.TypeName,
                         Price = issue.Price,
-                        Title = issue.Title
+                        Title = issue.Title,
+                        Description = issue.Description,
                     }).ToList();
         }
 
-        public static IssueDto ConvertIssueToDto(this Issue issues, TypeIssue typeIssues, Catalog catalogs)
+        public static IssueDto ConvertIssueToDto(this Issue issue, TypeIssue typeIssue, Catalog catalog)
         {
             return new IssueDto
             {
-                IssueId = issues.IssueId,
-                Catalog = catalogs.CatalogName,
-                TypeIssue = typeIssues.TypeName,
-                Price = issues.Price,
-                Title = issues.Title
+                IssueId = issue.IssueId,
+                Catalog = catalog.CatalogName,
+                TypeIssue = typeIssue.TypeName,
+                Price = issue.Price,
+                Title = issue.Title,
+                Description = issue.Description
             };
         }
     }
