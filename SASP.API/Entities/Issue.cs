@@ -16,6 +16,8 @@ namespace SASP.API.Entities
         [Required]
         public string Title { get; set; }
 
+        public string Photo { get; set; } = string.Empty;
+
         public string Description { get; set; } = string.Empty;
 
         [Required]
