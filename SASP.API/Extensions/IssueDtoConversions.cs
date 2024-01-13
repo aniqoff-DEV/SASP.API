@@ -19,6 +19,7 @@ namespace SASP.API.Extensions
                         TypeIssue = type.TypeName,
                         Price = issue.Price,
                         Title = issue.Title,
+                        Photo = issue.Photo,
                         Description = issue.Description,
                     }).ToList();
         }

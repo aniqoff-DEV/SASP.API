@@ -16,9 +16,9 @@ namespace SASP.API.Entities
         [Required]
         public string Title { get; set; }
 
-        public string Photo { get; set; } = string.Empty;
+        public string Photo { get; set; }
 
-        public string Description { get; set; } = string.Empty;
+        public string Description { get; set; }
 
         [Required]
         public decimal Price { get; set; }

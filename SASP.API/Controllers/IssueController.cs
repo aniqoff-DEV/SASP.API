@@ -135,6 +135,7 @@ namespace SASP.API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
+
         [HttpPatch("{id:int}")]
         public async Task<ActionResult<IssueDto>> UpdateIssue(int id, Issue issue)
         {
