@@ -70,6 +70,26 @@ namespace SASP.API.Controllers
             }
         }
 
+        [HttpGet("row/{id:int}")]
+        public async Task<ActionResult<OrderHistory>> GetRowOrder(int id)
+        {
+            try
+            {
+                var order = await _orderRepository.GetItemById(id);
+
+                if (order == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(order);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<OrderHistoryDto>>> GetOrders()
         {
@@ -143,7 +163,7 @@ namespace SASP.API.Controllers
         }
 
         [HttpDelete("{id:int}")]
-        public async Task<ActionResult<OrderHistoryDto>> DeleteCountry(int id)
+        public async Task<ActionResult<OrderHistoryDto>> DeleteOrder(int id)
         {
             try
             {
@@ -171,7 +191,7 @@ namespace SASP.API.Controllers
         }
 
         [HttpPatch("{id:int}")]
-        public async Task<ActionResult<Subscription>> UpdateCountry(int id, OrderHistory order)
+        public async Task<ActionResult<Subscription>> UpdateOrder(int id, OrderHistory order)
         {
             try
             {

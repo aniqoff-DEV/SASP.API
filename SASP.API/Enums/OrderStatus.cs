@@ -2,7 +2,7 @@
 {
     public static class OrderStatus
     {
-       public static string ConvertStatus(string inStatus)
+       public static string? ConvertStatus(string inStatus)
         {
             switch(inStatus)
             {
