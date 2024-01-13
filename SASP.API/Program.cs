@@ -37,7 +37,7 @@ builder.Services.AddScoped<IRepository<City>, CityRepository>();
 builder.Services.AddScoped<IRepository<Country>, CountryRepository>();
 builder.Services.AddScoped<IRepository<Catalog>, CatalogRepository>();
 builder.Services.AddScoped<IRepository<Issue>, IssueRepository>();
-builder.Services.AddScoped<IRepository<OrderHistory>, OrderHistoryRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderHistoryRepository>();
 builder.Services.AddScoped<IRepository<Subscription>, SubscriptionRepository>();
 builder.Services.AddScoped<IRepository<TypeIssue>, TypeIssueRepository>();
 #endregion

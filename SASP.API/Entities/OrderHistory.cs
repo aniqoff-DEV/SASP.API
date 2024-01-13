@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections;
+using System.ComponentModel.DataAnnotations;
 
 namespace SASP.API.Entities
 {
@@ -15,5 +16,8 @@ namespace SASP.API.Entities
 
         [Required]
         public DateTime CreatedDate { get; set;}
+
+        [Required]
+        public string Status { get; set; }
     }
 }

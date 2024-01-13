@@ -5,7 +5,7 @@ using SASP.API.Repositories.Contracts;
 
 namespace SASP.API.Repositories
 {
-    public class OrderHistoryRepository : IRepository<OrderHistory>
+    public class OrderHistoryRepository : IOrderRepository
     {
         private readonly SASPDbContext _context;
 
@@ -13,6 +13,7 @@ namespace SASP.API.Repositories
         {
             _context = context;
         }
+
         public async Task<OrderHistory> CreateItem(OrderHistory order)
         {
             if (order != null)
@@ -49,8 +50,9 @@ namespace SASP.API.Repositories
             return await _context.OrderHistories.ToListAsync();
         }
 
-        public async Task<OrderHistory> UpdateItem(int id, OrderHistory order)
+        public async Task<OrderHistory> UpdateItem(int id, string status)
         {
+            
             var orderToUpdate = await _context.OrderHistories.FirstOrDefaultAsync(o => o.OrderId == id);
 
             if (orderToUpdate == null)
@@ -58,9 +60,7 @@ namespace SASP.API.Repositories
                 return null;
             }
 
-            orderToUpdate.CreatedDate = order.CreatedDate;
-            orderToUpdate.UserId = order.UserId;
-            orderToUpdate.IssueId = order.IssueId;
+            orderToUpdate.Status = status;
 
             await _context.SaveChangesAsync();
 
