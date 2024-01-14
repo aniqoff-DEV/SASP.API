@@ -17,6 +17,8 @@ namespace SASP.API.Controllers
         private readonly IRepository<Issue> _issueRepository;
         private readonly IRepository<User> _userRepository;
 
+        const decimal tax = (decimal)1.01;
+        const decimal allowance = (decimal)1.18;
 
         public SubscriptionController(IRepository<Subscription> subscriptionRepository, IRepository<Issue> issueRepository, IRepository<User> userRepository)
         {
@@ -87,6 +89,7 @@ namespace SASP.API.Controllers
         {
             try
             {
+                sub.Price = await PriceCalculation(sub.Price, sub.EndSub,sub.StartSub);
                 var newSub = await _subscriptionRepository.CreateItem(sub);
 
                 if (newSub == null)
@@ -159,6 +162,12 @@ namespace SASP.API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
 
+        }
+
+        private async Task<decimal> PriceCalculation(decimal priceNow, DateTime endSub, DateTime startSub)
+        {
+            decimal price = priceNow * (1 + 1 / (endSub.Day - startSub.Day)) * tax + allowance;
+            return price;
         }
     }
 }

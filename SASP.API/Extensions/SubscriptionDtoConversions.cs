@@ -19,7 +19,7 @@ namespace SASP.API.Extensions
                         User = user.UserId + user.Name,
                         StartSub = sub.StartSub,
                         EndSub = sub.EndSub,
-                        Price = issue.Price
+                        Price = sub.Price
                     }).ToList();
         }
 
@@ -32,7 +32,7 @@ namespace SASP.API.Extensions
                 User = user.UserId + user.Name,
                 StartSub = sub.StartSub,
                 EndSub = sub.EndSub,
-                Price = issue.Price
+                Price = sub.Price
             };
         }
     }
